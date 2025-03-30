@@ -17,7 +17,7 @@ const tts = await KokoroTTS.from_pretrained(model_id, {
 self.postMessage({ status: "ready", voices: tts.voices, device });
 
 // Listen for messages from the main thread
-self.addEventListener("message", async (e) => {
+self.addEventListener("message", async e => {
   const { text, voice, speed } = e.data;
 
   const streamer = new TextSplitterStream();
