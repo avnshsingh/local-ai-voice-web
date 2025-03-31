@@ -53,8 +53,6 @@ export default function AudioReader() {
 
   const [loadingProgress, setLoadingProgress] = useState(0); // [0, 100]
 
-  console.log("loadingProgress", loadingProgress);
-
   useEffect(() => {
     worker.current ??= new Worker(new URL("./worker.js", import.meta.url), {
       type: "module",
@@ -63,7 +61,7 @@ export default function AudioReader() {
     // Create a callback function for messages from the worker thread.
     // @ts-expect-error - No need to define type for data
     const onMessageReceived = ({ data }) => {
-      console.log("Message received from worker:", data);
+      // console.log("Message received from worker:", data);
       switch (data.status) {
         case "device":
           toast("Device detected: " + data.device);
