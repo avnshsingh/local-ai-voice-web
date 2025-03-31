@@ -25,6 +25,9 @@ import type { AudioChunkData } from "./components/audio-chunk";
 import { Progress } from "./components/ui/progress";
 import { ModeToggle } from "./components/mode-toggle";
 
+// @ts-ignore
+const IS_WEBGPU_AVAILABLE = !!navigator.gpu;
+
 export default function AudioReader() {
   const [text, setText] = useState(
     "Kokoro is an open-weight TTS model with 82 million parameters. Despite its lightweight architecture, it delivers comparable quality to larger models while being significantly faster and more cost-efficient. With Apache-licensed weights, Kokoro can be deployed anywhere from production environments to personal projects. It can even run 100% locally in your browser, powered by Transformers.js!"
@@ -150,6 +153,13 @@ export default function AudioReader() {
             <p className="text-muted-foreground">
               Convert text to natural-sounding speech
             </p>
+            {!IS_WEBGPU_AVAILABLE && (
+              <p className="text-destructive font-bold mt-2">
+                ⚠️ WebGPU not detected - Running on CPU mode. For better
+                performance, we recommend using a WebGPU-enabled browser such as
+                Chrome and device with GPU.
+              </p>
+            )}
           </div>
 
           <Card className="shadow-lg bg-card text-card-foreground">
@@ -195,7 +205,13 @@ export default function AudioReader() {
                     {error}
                   </div>
                 ) : loadingProgress > 0 ? (
-                  <Progress value={loadingProgress} className="w-full h-4" />
+                  <div className="w-full">
+                    <p className="text-destructive font-bold mt-2 text-center">
+                      Model Files are downloaded only once. Model size: Around
+                      350MB
+                    </p>
+                    <Progress value={loadingProgress} className="w-full h-4" />
+                  </div>
                 ) : (
                   <div className="animate-pulse text-center">Loading...</div>
                 )}
@@ -243,7 +259,7 @@ export default function AudioReader() {
                     URL.revokeObjectURL(url);
                   }}
                   disabled={!result || status !== "ready"}
-                  className="ml-auto"
+                  className="ml-auto border-2"
                 >
                   <Download className="mr-2 size-6" />
                   Download Audio
