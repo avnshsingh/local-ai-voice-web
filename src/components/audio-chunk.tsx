@@ -85,10 +85,10 @@ export const AudioChunk = memo(function AudioChunk({
     <div
       {...props}
       className={cn(
-        "p-3 rounded-lg transition-all hover:bg-blue-50 hover:border hover:border-blue-200 cursor-pointer",
+        "p-3 rounded-lg transition-all hover:bg-accent hover:border hover:border-border cursor-pointer",
         active
-          ? "bg-blue-50 border border-blue-200"
-          : "bg-gray-50 border border-transparent",
+          ? "bg-accent border border-border"
+          : "bg-muted border border-transparent"
       )}
       onClick={onClick}
     >

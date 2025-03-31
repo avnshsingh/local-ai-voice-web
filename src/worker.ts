@@ -10,6 +10,11 @@ const model_id = "onnx-community/Kokoro-82M-v1.0-ONNX";
 const tts = await KokoroTTS.from_pretrained(model_id, {
   dtype: device === "wasm" ? "q8" : "fp32",
   device,
+  // @ts-ignore
+  progress_callback: (progress: number) => {
+    // console.log("progress", progress);
+    self.postMessage({ status: "progress", progress });
+  },
 }).catch((e: Error) => {
   self.postMessage({ status: "error", error: e.message });
   throw e;
