@@ -30,7 +30,11 @@ const IS_WEBGPU_AVAILABLE = !!navigator.gpu;
 
 export default function AudioReader() {
   const [text, setText] = useState(
-    "Kokoro is an open-weight TTS model with 82 million parameters. Despite its lightweight architecture, it delivers comparable quality to larger models while being significantly faster and more cost-efficient. With Apache-licensed weights, Kokoro can be deployed anywhere from production environments to personal projects. It can even run 100% locally in your browser, powered by Transformers.js!"
+    `We at PriVideo started with a simple idea: powerful content creation tools shouldn't come at the cost of your privacy. Too many online services require you to upload your content to their servers, often collecting your data in the process.
+
+Our solution is different. We've built a suite of tools that run entirely in your browser, processing everything locally on your device. Your media files, transcriptions, and edits never leave your computer.
+
+We believe in the power of technology to enable creativity while respecting user privacy and ownership of data.`
   );
   const [lastGeneration, setLastGeneration] = useState<{
     text: string;
@@ -142,16 +146,19 @@ export default function AudioReader() {
 
   return (
     <>
-      <div className="min-h-screen bg-accent p-4 md:p-12">
+      <div className="min-h-screen bg-background p-4 md:p-12">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-4">
             <div className="inline-flex items-center gap-2">
-              <AudioWaveform className="size-12 text-primary" />
-              <h1 className="text-5xl font-bold text-foreground">Kokoro Web</h1>
+              <AudioWaveform className="size-12 text-primary my-5" />
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground">
+                Unlimited Free Human Like AI Voice
+              </h1>
               <ModeToggle />
             </div>
             <p className="text-muted-foreground">
-              Convert text to natural-sounding speech
+              Convert text to natural-sounding speech. Fully privacy focused,
+              Zero data leaves you device.
             </p>
             {!IS_WEBGPU_AVAILABLE && (
               <p className="text-destructive font-bold mt-2">
