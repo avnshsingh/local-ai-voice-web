@@ -29,10 +29,10 @@ const BASEURL = "https://privideo.xyz";
 export const navItems: navItem[] = [
   { href: `${BASEURL}`, label: "Home" },
   { href: `${BASEURL}/about-us`, label: "About Us" },
-  // { href: "/blog", label: "Blog" },
-  // { href: "/disclaimer", label: "Disclaimer" },
-  { href: `${BASEURL}/transcribe`, label: "Transcribe" },
   { href: `${BASEURL}/sub-editor`, label: "Sub Editor" },
+  { href: `${BASEURL}/transcribe`, label: "Transcribe" },
+  { href: "https://transcribe.privideo.xyz", label: "Transcribe GPU" },
+  { href: "https://voice.privideo.xyz", label: "AI Voice" },
 ];
 
 export default function SiteHeaderNav() {
