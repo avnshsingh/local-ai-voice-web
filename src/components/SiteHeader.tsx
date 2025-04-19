@@ -24,7 +24,7 @@ type navItem = {
   label: string;
 };
 
-const BASEURL = "https://sub-test.avinashs.in";
+const BASEURL = "https://privideo.xyz";
 
 export const navItems: navItem[] = [
   { href: `${BASEURL}`, label: "Home" },
