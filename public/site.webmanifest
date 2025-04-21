@@ -1,6 +1,7 @@
 {
   "name": "PriVideo AI Voice",
-  "short_name": "PriVideo",
+  "short_name": "PriVideo AI Voice",
+  "description": "Privacy-Focused Human like ai voice generator",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -16,6 +17,5 @@
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
-  "start_url": "/",
-  "description": "Privacy-Focused Text to Speech Converter"
+  "start_url": "/"
 }
