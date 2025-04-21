@@ -158,7 +158,6 @@ We believe in the power of technology to enable creativity while respecting user
                 <h1 className="text-3xl md:text-4xl font-bold text-foreground">
                   Unlimited Free Human Like AI Voice
                 </h1>
-                <ModeToggle />
               </div>
               <p className="text-muted-foreground">
                 Convert text to natural-sounding speech. Fully privacy focused,

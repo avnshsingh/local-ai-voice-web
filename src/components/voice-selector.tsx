@@ -29,8 +29,10 @@ export function VoiceSelector({
       <SelectContent>
         {Object.entries(voices).map(([key, voice]) => (
           <SelectItem key={key} value={key}>
-            {voice.name} ({voice.language === "en-us" ? "American" : "British"}{" "}
-            {voice.gender})
+            {voice.name}
+            {voice?.traits && voice?.traits} (
+            {voice.language === "en-us" ? "American" : "British"} {voice.gender}
+            )
           </SelectItem>
         ))}
       </SelectContent>
