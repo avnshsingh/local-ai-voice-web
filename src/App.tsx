@@ -23,7 +23,6 @@ import { SpeedControl } from "./components/speed-control";
 import { AudioChunk } from "./components/audio-chunk";
 import type { AudioChunkData } from "./components/audio-chunk";
 import { Progress } from "./components/ui/progress";
-import { ModeToggle } from "./components/mode-toggle";
 import SiteHeaderNav from "./components/SiteHeader";
 
 // @ts-ignore

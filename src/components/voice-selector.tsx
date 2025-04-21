@@ -30,6 +30,7 @@ export function VoiceSelector({
         {Object.entries(voices).map(([key, voice]) => (
           <SelectItem key={key} value={key}>
             {voice.name}
+            {/* @ts-ignore */}
             {voice?.traits && voice?.traits} (
             {voice.language === "en-us" ? "American" : "British"} {voice.gender}
             )
