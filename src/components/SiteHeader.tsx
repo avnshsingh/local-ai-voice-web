@@ -18,21 +18,20 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Menu, Moon, Sun } from "lucide-react";
 import { useTheme } from "./theme-provider";
+import { SiteData } from "@/lib/const";
 
 type navItem = {
   href: string;
   label: string;
 };
 
-const BASEURL = "https://privideo.xyz";
-
 export const navItems: navItem[] = [
-  { href: `${BASEURL}`, label: "Home" },
-  { href: `${BASEURL}/about-us`, label: "About Us" },
-  { href: `${BASEURL}/sub-editor`, label: "Sub Editor" },
-  { href: `${BASEURL}/transcribe`, label: "Transcribe" },
-  { href: "https://transcribe.privideo.xyz", label: "Transcribe GPU" },
-  { href: "https://voice.privideo.xyz", label: "AI Voice" },
+  { href: `${SiteData.url}`, label: "Home" },
+  { href: `${SiteData.url}/about-us`, label: "About Us" },
+  { href: `${SiteData.url}/sub-editor`, label: "Sub Editor" },
+  { href: `${SiteData.url}/transcribe`, label: "Transcribe" },
+  { href: "https://transcribe.privro.com", label: "Transcribe GPU" },
+  { href: "https://voice.privro.com", label: "AI Voice" },
 ];
 
 export default function SiteHeaderNav() {
@@ -102,13 +101,15 @@ function MobileNav() {
             <Menu size={36} strokeWidth={2} />
             <span className="sr-only">Toggle menu</span>
           </Button>
-          <h1 className="font-bold pl-2 md:hidden">PriVideo</h1>
+          <h1 className="font-bold pl-2 md:hidden">{SiteData.siteName}</h1>
         </div>
       </SheetTrigger>
       <SheetContent side="left" className="w-[300px] sm:w-[400px]">
         <SheetHeader className="hidden">
           <SheetTitle>Mobile Navigation</SheetTitle>
-          <SheetDescription>PriVideo Mobile Navigation Menu</SheetDescription>
+          <SheetDescription>
+            {SiteData.siteName} Mobile Navigation Menu
+          </SheetDescription>
         </SheetHeader>
         <nav className="flex flex-col space-y-4 px-5 mt-10">
           {navItems.map(item => (

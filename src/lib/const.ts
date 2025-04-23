@@ -1,0 +1,25 @@
+export const SiteData = {
+  siteName: "Privro AI",
+  shortName: "Privro",
+  url: "https://privro.com",
+  title: "Privro AI - Video Tools, Captions, Transcription & AI Voice Free",
+  description:
+    "Privro AI offers free unlimited subtitle generation, video captions, audio transcription, and human-like AI voice tools — Enjoy unlimited free usage.",
+  keywords: [
+    "privro ai",
+    "video tools",
+    "free subtitles",
+    "free captions",
+    "audio transcription",
+    "ai voice generator",
+    "human-like voice",
+    "video captioning",
+    "subtitle generator",
+    "content creation tools",
+    "free ai tools",
+    "unlimited ai tools",
+    "transcribe audio",
+    "ai video editing",
+    "ai voiceover",
+  ],
+};

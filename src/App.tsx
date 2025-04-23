@@ -30,7 +30,7 @@ const IS_WEBGPU_AVAILABLE = !!navigator.gpu;
 
 export default function AudioReader() {
   const [text, setText] = useState(
-    `We at PriVideo started with a simple idea: powerful content creation tools shouldn't come at the cost of your privacy. Too many online services require you to upload your content to their servers, often collecting your data in the process.
+    `We at PriVro started with a simple idea: powerful content creation tools shouldn't come at the cost of your privacy. Too many online services require you to upload your content to their servers, often collecting your data in the process.
 
 Our solution is different. We've built a suite of tools that run entirely in your browser, processing everything locally on your device. Your media files, transcriptions, and edits never leave your computer.
 
