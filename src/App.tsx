@@ -6,6 +6,7 @@ import {
   Copy,
   Check,
   AudioWaveform,
+  Square,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -53,6 +54,7 @@ We believe in the power of technology to enable creativity while respecting user
   const [error, setError] = useState<string | null>(null);
 
   const worker = useRef<Worker | null>(null);
+  const generationId = useRef(0);
   const [voices, setVoices] = useState<Voices | null>(null);
   const [selectedVoice, setSelectedVoice] = useState<keyof Voices>("af_heart");
   const [chunks, setChunks] = useState<AudioChunkData[]>([]);
@@ -61,7 +63,7 @@ We believe in the power of technology to enable creativity while respecting user
   const [loadingProgress, setLoadingProgress] = useState(0); // [0, 100]
 
   useEffect(() => {
-    worker.current ??= new Worker(new URL("./worker.js", import.meta.url), {
+    worker.current ??= new Worker(new URL("./worker.ts", import.meta.url), {
       type: "module",
     });
 
@@ -90,10 +92,12 @@ We believe in the power of technology to enable creativity while respecting user
           setError(data.data);
           break;
         case "stream": {
+          if (data.id !== generationId.current) break;
           setChunks(prev => [...prev, data.chunk]);
           break;
         }
         case "complete": {
+          if (data.id !== generationId.current) break;
           setStatus("ready");
           setResult(data.audio);
           break;
@@ -127,15 +131,27 @@ We believe in the power of technology to enable creativity while respecting user
     if (!isPlaying && status === "ready" && !processed) {
       setStatus("generating");
       setChunks([]);
+      setResult(null);
       setCurrentChunkIndex(0);
-      const params = { text, voice: selectedVoice, speed };
-      setLastGeneration(params);
+      const id = ++generationId.current;
+      const params = { text, voice: selectedVoice, speed, id };
+      setLastGeneration({ text, voice: selectedVoice, speed });
       worker.current?.postMessage(params);
     }
     if (currentChunkIndex === -1) {
       setCurrentChunkIndex(0);
     }
     setIsPlaying(!isPlaying);
+  };
+
+  const handleStop = () => {
+    if (status !== "generating") return;
+    generationId.current += 1;
+    worker.current?.postMessage({ type: "stop" });
+    setStatus("ready");
+    setIsPlaying(false);
+    setLastGeneration(null);
+    toast("Voice generation stopped");
   };
 
   const handleCopy = async () => {
@@ -146,14 +162,14 @@ We believe in the power of technology to enable creativity while respecting user
 
   return (
     <>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen">
         <SiteHeaderNav />
 
         <div className="p-4 md:p-12">
           <div className="container mx-auto max-w-4xl">
             <div className="text-center mb-4">
               <div className="inline-flex items-center gap-2">
-                <AudioWaveform className="size-12 text-primary my-5" />
+                <AudioWaveform className="size-12 text-brand my-5" />
                 <h1 className="text-3xl md:text-4xl font-bold text-foreground">
                   Unlimited Free Human Like AI Voice
                 </h1>
@@ -237,7 +253,7 @@ We believe in the power of technology to enable creativity while respecting user
                     onClick={handlePlayPause}
                     className={cn(
                       "text-lg w-36 transition-all",
-                      isPlaying && "bg-orange-600 hover:bg-orange-700"
+                      isPlaying && "bg-brand hover:bg-brand/90"
                     )}
                     disabled={
                       (status === "ready" && !isPlaying && !text) ||
@@ -258,6 +274,17 @@ We believe in the power of technology to enable creativity while respecting user
                       </>
                     )}
                   </Button>
+                  {status === "generating" && (
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      onClick={handleStop}
+                      className="text-lg"
+                    >
+                      <Square className="mr-1 size-5 fill-current" />
+                      Stop
+                    </Button>
+                  )}
                   <Button
                     size="lg"
                     variant="outline"

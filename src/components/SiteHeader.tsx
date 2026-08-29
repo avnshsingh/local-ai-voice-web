@@ -1,11 +1,4 @@
 import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import {
   Sheet,
   SheetClose,
   SheetContent,
@@ -27,18 +20,42 @@ type navItem = {
 
 export const navItems: navItem[] = [
   { href: `${SiteData.url}`, label: "Home" },
-  { href: `${SiteData.url}/about-us`, label: "About Us" },
-  { href: `${SiteData.url}/sub-editor`, label: "Sub Editor" },
   { href: `${SiteData.url}/transcribe`, label: "Transcribe" },
-  { href: "https://transcribe.privro.com", label: "Transcribe GPU" },
+  { href: `${SiteData.url}/caption-studio`, label: "Caption Studio" },
   { href: "https://voice.privro.com", label: "AI Voice" },
 ];
 
+function BrandMark({ className }: { className?: string }) {
+  return (
+    <a
+      href={SiteData.url}
+      className={cn(
+        "flex items-center gap-2 text-foreground no-underline",
+        className,
+      )}
+    >
+      <span
+        className="size-2 shrink-0 rounded-full bg-brand"
+        aria-hidden="true"
+      />
+      <span className="text-[15px] font-semibold tracking-tight">
+        {SiteData.shortName}
+      </span>
+    </a>
+  );
+}
+
 export default function SiteHeaderNav() {
   return (
-    <header className="container mx-auto py-2 z-10">
-      <MainNav />
-      <MobileNav />
+    <header className="relative z-10 px-4 py-3 md:px-6">
+      <div className="mx-auto flex max-w-screen-lg items-center gap-4">
+        <BrandMark className="shrink-0" />
+        <MainNav />
+        <div className="ml-auto flex items-center gap-2">
+          <ThemeToggle />
+          <MobileNav />
+        </div>
+      </div>
     </header>
   );
 }
@@ -50,86 +67,68 @@ function ThemeToggle() {
     <Button
       variant="outline"
       size="icon"
+      className="size-9 border-brand text-foreground hover:bg-accent"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      aria-label="Toggle theme"
     >
       {theme === "dark" ? (
-        <Sun className="h-5 w-5" />
+        <Sun className="h-4 w-4" />
       ) : (
-        <Moon className="h-5 w-5" />
+        <Moon className="h-4 w-4" />
       )}
     </Button>
   );
 }
 
-// Non-mobile (like tablet, desktop) navigation menu
 function MainNav() {
-  const pathname = "usePathname();";
-
   return (
-    <NavigationMenu className="hidden md:flex max-w-max-[1500px] mx-auto">
-      <NavigationMenuList>
-        {navItems.map(item => (
-          <NavigationMenuItem key={item.href}>
-            <a href={item.href}>
-              <NavigationMenuLink
-                className={cn(
-                  navigationMenuTriggerStyle(),
-                  pathname === item.href && "bg-accent text-accent-foreground"
-                )}
-              >
-                {item.label}
-              </NavigationMenuLink>
-            </a>
-          </NavigationMenuItem>
-        ))}
-        <NavigationMenuItem>
-          <ThemeToggle />
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <nav
+      aria-label="Main"
+      className="hidden min-w-0 flex-1 items-center gap-0.5 md:flex"
+    >
+      {navItems.map(item => (
+        <a
+          key={item.href}
+          href={item.href}
+          className="rounded-md px-3 py-1.5 text-sm text-muted-foreground no-underline transition-colors duration-150 hover:text-foreground"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
   );
 }
 
-// Mobile navigation menu
 function MobileNav() {
-  const pathname = "usePathname();";
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <div className="flex items-center justify-start w-full">
-          <Button variant="ghost" className="md:hidden" size="icon">
-            <Menu size={36} strokeWidth={2} />
-            <span className="sr-only">Toggle menu</span>
-          </Button>
-          <h1 className="font-bold pl-2 md:hidden">{SiteData.siteName}</h1>
-        </div>
+        <Button variant="ghost" className="md:hidden" size="icon">
+          <Menu className="size-6" strokeWidth={2} />
+          <span className="sr-only">Toggle menu</span>
+        </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-        <SheetHeader className="hidden">
-          <SheetTitle>Mobile Navigation</SheetTitle>
-          <SheetDescription>
+        <SheetHeader>
+          <SheetTitle className="sr-only">Mobile Navigation</SheetTitle>
+          <SheetDescription className="sr-only">
             {SiteData.siteName} Mobile Navigation Menu
           </SheetDescription>
         </SheetHeader>
-        <nav className="flex flex-col space-y-4 px-5 mt-10">
+        <div className="px-5 pt-8">
+          <BrandMark />
+        </div>
+        <nav className="mt-8 flex flex-col space-y-1 px-5">
           {navItems.map(item => (
             <SheetClose asChild key={item.href}>
               <a
                 href={item.href}
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === item.href
-                    ? "text-black dark:text-white"
-                    : "text-muted-foreground"
-                )}
+                className="rounded-md px-2 py-2 text-sm font-medium text-muted-foreground no-underline transition-colors duration-150 hover:text-foreground"
               >
                 {item.label}
               </a>
             </SheetClose>
           ))}
-          <div className="flex items-center space-x-2">
-            <ThemeToggle />
-          </div>
         </nav>
       </SheetContent>
     </Sheet>

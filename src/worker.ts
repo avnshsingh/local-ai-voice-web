@@ -21,9 +21,16 @@ const tts = await KokoroTTS.from_pretrained(model_id, {
 });
 self.postMessage({ status: "ready", voices: tts.voices, device });
 
-// Listen for messages from the main thread
+let activeJobId = 0;
+
 self.addEventListener("message", async e => {
-  const { text, voice, speed } = e.data;
+  if (e.data?.type === "stop") {
+    activeJobId = -1;
+    return;
+  }
+
+  const { text, voice, speed, id } = e.data;
+  activeJobId = id;
 
   const streamer = new TextSplitterStream();
   streamer.push(text);
@@ -33,8 +40,10 @@ self.addEventListener("message", async e => {
 
   const chunks = [];
   for await (const { text, audio } of stream) {
+    if (activeJobId !== id) return;
     self.postMessage({
       status: "stream",
+      id,
       chunk: {
         audio: audio.toBlob(),
         text,
@@ -42,6 +51,8 @@ self.addEventListener("message", async e => {
     });
     chunks.push(audio);
   }
+
+  if (activeJobId !== id) return;
 
   // Merge chunks
   let audio;
@@ -60,5 +71,5 @@ self.addEventListener("message", async e => {
     audio = new chunks[0].constructor(waveform, sampling_rate);
   }
 
-  self.postMessage({ status: "complete", audio: audio.toBlob() });
+  self.postMessage({ status: "complete", id, audio: audio.toBlob() });
 });
