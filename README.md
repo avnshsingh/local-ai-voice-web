@@ -1,4 +1,4 @@
-# Privro AI Voice
+# Privro AI Voice - Local natural ai voice with kokoro
 
 In-browser text-to-speech for [Privro AI](https://privro.com). Paste text, pick a voice, and generate speech on your device. Nothing is uploaded.
 
