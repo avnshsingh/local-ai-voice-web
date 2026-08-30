@@ -10,11 +10,11 @@ Speech is produced by [Kokoro](https://github.com/hexgrad/kokoro) (`Kokoro-82M`)
 
 This repo is the **AI Voice** app. Privro is a browser suite of local tools: no account, no upload to Privro, and no usage quota for on-device processing.
 
-| Tool                                                | What it does                                 |
-| --------------------------------------------------- | -------------------------------------------- |
-| [Transcribe](https://privro.com/transcribe)         | Speech-to-text with Whisper on your device   |
-| [Caption Studio](https://privro.com/caption-studio) | Style subtitles on video and export up to 4K |
-| [AI Voice](https://voice.privro.com)                | Text-to-speech with Kokoro (this project)    |
+| Tool                                                 | What it does                                 |
+| ---------------------------------------------------- | -------------------------------------------- |
+| [Local Transcription](https://privro.com/transcribe) | Speech-to-text with Whisper on your device   |
+| [Caption Studio](https://privro.com/caption-studio)  | Style subtitles on video and export up to 4K |
+| [Local AI Voice](https://voice.privro.com)           | Text-to-speech with Kokoro (this project)    |
 
 ### Transcribe
 
