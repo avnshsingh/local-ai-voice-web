@@ -2,6 +2,7 @@ export const SiteData = {
   siteName: "Privro AI",
   shortName: "Privro",
   url: "https://privro.com",
+  githubUrl: "https://github.com/avnshsingh/local-ai-voice-web",
   title: "Privro AI - Video Tools, Captions, Transcription & AI Voice Free",
   description:
     "Privro AI offers free unlimited subtitle generation, video captions, audio transcription, and human-like AI voice tools — Enjoy unlimited free usage.",

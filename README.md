@@ -65,8 +65,8 @@ The Kokoro ONNX model (~350MB) downloads once and is cached by the browser.
 ## Run locally
 
 ```bash
-git clone https://github.com/avnshsingh/local-tts-react.git
-cd local-tts-react
+git clone https://github.com/avnshsingh/local-ai-voice-web
+cd local-ai-voice-web
 npm install
 npm run dev
 ```

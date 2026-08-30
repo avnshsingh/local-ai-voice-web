@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
-import { Menu, Moon, Sun } from "lucide-react";
+import { Github, Menu, Moon, Star, Sun } from "lucide-react";
 import { useTheme } from "./theme-provider";
 import { SiteData } from "@/lib/const";
 
@@ -52,11 +52,28 @@ export default function SiteHeaderNav() {
         <BrandMark className="shrink-0" />
         <MainNav />
         <div className="ml-auto flex items-center gap-2">
+          <GitHubButton />
           <ThemeToggle />
           <MobileNav />
         </div>
       </div>
     </header>
+  );
+}
+
+function GitHubButton() {
+  return (
+    <a
+      href={SiteData.githubUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Star on GitHub"
+      className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md border border-brand px-2.5 text-sm font-medium tracking-tight text-foreground no-underline transition-colors duration-150 hover:bg-accent"
+    >
+      <Github className="size-4" aria-hidden="true" />
+      GitHub
+      <Star className="size-3.5 fill-brand text-brand" aria-hidden="true" />
+    </a>
   );
 }
 
