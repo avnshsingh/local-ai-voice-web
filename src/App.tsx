@@ -35,7 +35,7 @@ export default function AudioReader() {
 
 Our solution is different. We've built a suite of tools that run entirely in your browser, processing everything locally on your device. Your media files, transcriptions, and edits never leave your computer.
 
-We believe in the power of technology to enable creativity while respecting user privacy and ownership of data.`
+We believe in the power of technology to enable creativity while respecting user privacy and ownership of data.`,
   );
   const [lastGeneration, setLastGeneration] = useState<{
     text: string;
@@ -171,9 +171,13 @@ We believe in the power of technology to enable creativity while respecting user
               <div className="inline-flex items-center gap-2">
                 <AudioWaveform className="size-12 text-brand my-5" />
                 <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-                  Unlimited Free Human Like AI Voice
+                  Privro - Local AI Voice Generator
                 </h1>
               </div>
+              <h2 className="text-xl md:text-2xl font-bold text-foreground">
+                Unlimited Free Human Like AI Voice Generation using Kokoro that
+                works on your browser for any device with WebGPU support.
+              </h2>
               <p className="text-muted-foreground">
                 Convert text to natural-sounding speech. Fully privacy focused,
                 Zero data leaves you device.
@@ -253,7 +257,7 @@ We believe in the power of technology to enable creativity while respecting user
                     onClick={handlePlayPause}
                     className={cn(
                       "text-lg w-36 transition-all",
-                      isPlaying && "bg-brand hover:bg-brand/90"
+                      isPlaying && "bg-brand hover:bg-brand/90",
                     )}
                     disabled={
                       (status === "ready" && !isPlaying && !text) ||
