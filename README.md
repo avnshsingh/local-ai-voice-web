@@ -25,6 +25,14 @@ This repo is the **AI Voice** app. Privro is a browser suite of local tools: no 
 - **Languages:** OpenAI Whisper (99 languages), with auto-detect when available
 - Typical uses: meeting recordings, voice memos, interviews, and video-to-text or SRT captions
 
+#### Transcription by format
+
+Same local Whisper tool, with pages for specific file types.
+
+| Keyword                                                 | Description                                                    |
+| ------------------------------------------------------- | -------------------------------------------------------------- |
+| [MP4 to text converter](https://privro.com/mp4-to-text) | Spoken MP4 video to a transcript text(txt) or SRT/VTT captions |
+
 ### Caption Studio
 
 [Caption Studio](https://privro.com/caption-studio) styles subtitles on your video in the browser, previews them on the file, and exports captioned video. Media stays on your device.
