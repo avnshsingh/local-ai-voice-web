@@ -261,6 +261,97 @@ npm run preview  # Previews production build locally
 
 ---
 
+## Frequently Asked Questions (FAQ)
+
+### Free AI Voice & Text to Voice Generator
+
+#### Is this AI voice generator completely free?
+Yes. There are no word caps, character counts, daily limits, or subscriptions for generating voice audio locally. Because the neural models run entirely inside your browser using your own hardware (CPU or GPU), we don't have server compute bills for local generation and don't charge you for it.
+
+#### Does the text-to-voice generator upload my text or audio to a server?
+No. Everything stays strictly on your computer. When you paste text and hit Generate, the neural network synthesizes the audio inside a background Web Worker on your device. Neither your text nor the generated speech is ever sent over the internet.
+
+#### How many languages and voices does the voice generator support?
+- **Piper TTS:** Supports over **300 neural voices** across **40+ languages (58 regional accents and dialects)**, including American English, British English, Spanish, French, German, Hindi, Japanese, Chinese, Arabic, Portuguese, and dozens more. Many voice models also include multiple selectable speaker IDs.
+- **Kokoro TTS:** Generates expressive English speech with an 82-million parameter model and streaming chunk playback.
+
+#### Can I download the generated voice audio file?
+Yes. Once generation finishes, you can download the full audio track as a standard, lossless **16-bit PCM WAV file (22.05 kHz)**. You can use it in video edits, podcasts, voiceovers, or presentations without watermarks.
+
+#### Does the voice generator work offline?
+Yes, after the first load. The first time you pick a voice, your browser downloads the model file (~20 MB to ~60 MB) and saves it to your browser's local CacheStorage. On subsequent visits, the model loads instantly from disk with zero network downloads, allowing you to generate speech even without an internet connection.
+
+#### Why is WebGPU used for text-to-speech?
+WebGPU allows the browser to run neural tensor operations directly on your graphics card (GPU). This makes speech synthesis 3x to 5x faster than standard CPU processing. If your browser or device doesn't support WebGPU, the app automatically switches to multi-threaded WebAssembly (WASM) on your CPU so it still works everywhere.
+
+---
+
+### Free Audio to Text, Video to Text & Transcription Generator
+
+#### How do I convert audio to text for free?
+You can convert any spoken audio file to text using [Privro's free local transcription tool](https://privro.com/transcribe). Simply drag and drop your audio file (MP3, WAV, M4A, AAC, OGG, FLAC, OPUS, or WEBM), select your language or let auto-detect find it, and Whisper transcribes it in your browser. When finished, you can export your text or subtitle file immediately.
+
+#### How do I convert video to text for free?
+To convert video to text, drag and drop any MP4, WEBM, or MOV video into [Privro Local Transcription](https://privro.com/transcribe) or the dedicated [MP4 to text converter](https://privro.com/mp4-to-text). The browser extracts the audio track and transcribes every spoken word into text, timestamps, and SRT/VTT captions without uploading your heavy video file.
+
+#### How does the free transcription generator work?
+The transcription generator runs OpenAI Whisper directly on your machine via WebAssembly (WASM):
+1. **Choose a model:** Pick between Tiny (~120 MB) for maximum speed, Base (~206 MB) for everyday balance, Small, Medium, or Large Turbo (~1.6 GB) for maximum accuracy on tough accents.
+2. **Process locally:** The model decodes audio chunks in memory and outputs synchronized words and sentences.
+3. **Download:** Export your completed transcript as TXT, Word DOCX, PDF, or subtitle sidecars (SRT, VTT).
+
+#### Is there a minute limit or file size cap on free transcription?
+No. Unlike cloud transcription services that restrict free users to 10 or 15 minutes per month or charge per-minute fees, Privro's local transcription has **zero minute limits and zero file count quotas**. You can transcribe 5-minute voice memos or 4-hour lectures for free because your device handles the processing.
+
+#### Can I transcribe phone voice memos and interview recordings?
+Yes. You can import voice memos from iPhone (M4A/AAC), Android voice recorders (MP3/WAV/M4A), Zoom recordings, and dictaphone files. You can also record directly into the browser using your microphone.
+
+#### How many languages does the transcription tool support?
+Whisper supports **99 languages** with automatic language identification or manual selection. Major languages include English, Spanish, French, German, Hindi, Mandarin, Japanese, Korean, Portuguese, Italian, Dutch, Russian, Arabic, Turkish, Polish, Vietnamese, and 80+ more.
+
+#### How can transcription run locally without uploading my files?
+Most transcription websites require you to upload your audio or video to remote cloud servers, which can take a long time to upload and creates serious privacy risks for sensitive legal recordings, proprietary business meetings, journalist interviews, or medical consultations.
+
+Privro compiles OpenAI's Whisper model into WebAssembly that runs inside your browser sandbox. Your audio file is decoded in your computer's RAM, transcribed locally, and never transmitted over the network.
+
+#### What export formats are available for transcripts?
+You can download your finished transcript with word-level timestamps in 8 different formats:
+- Plain text: `TXT`
+- Subtitles: `SRT`, `VTT`
+- Data & spreadsheets: `CSV`, `JSON`, `XLSX`
+- Formatted documents: `DOCX`, `PDF`
+
+---
+
+### Video Captions & Subtitle Studio
+
+#### Can I add and burn captions into my videos for free?
+Yes. [Caption Studio](https://privro.com/caption-studio) lets you upload video, automatically transcribe speech with on-device Whisper, style your subtitles, and burn them directly into the video. Video encoding runs entirely in your browser using client-side FFmpeg, exporting videos up to **4K resolution** with **no watermarks**.
+
+#### How many languages does Caption Studio support?
+- **Interface & Editor:** Fully localized in **22 languages** (English, Spanish, Portuguese, German, French, Hindi, Japanese, and more).
+- **Subtitles & Transcription:** Transcribes and synchronizes spoken dialogue across **99 languages** via Whisper.
+
+#### What aspect ratios does Caption Studio support?
+You can crop and format captioned videos for all major social media platforms:
+- **9:16:** TikTok, Instagram Reels, YouTube Shorts
+- **16:9:** YouTube, Vimeo, landscape video
+- **1:1:** Instagram square feed, LinkedIn
+- **4:5:** Instagram portrait feed
+- **3:2:** Photography and desktop displays
+
+---
+
+### Platform, Languages & Privacy
+
+#### How many languages are available across the Privro platform?
+Privro is localized across **22 languages**: English, Spanish, Portuguese, Italian, German, French, Hindi, Indonesian, Polish, Japanese, Dutch, Swedish, Danish, Norwegian, Finnish, Czech, Turkish, Russian, Korean, Traditional Chinese, Arabic, and Hebrew. Every language has its own localized homepage at `https://privro.com/{locale}`.
+
+#### What is `https://privro.com/llms.txt`?
+[privro.com/llms.txt](https://privro.com/llms.txt) is a structured, machine-readable documentation file following the emerging `llms.txt` standard. It gives AI assistants, LLMs, and web crawlers an accurate, verified summary of Privro's on-device privacy model, Whisper model specifications, Caption Studio capabilities, Piper neural voices, and pricing tiers.
+
+---
+
 ## Credits & Attributions
 
 - [Piper](https://github.com/rhasspy/piper) and [Piper Voices](https://huggingface.co/rhasspy/piper-voices) by Michael Hansen and the Rhasspy project.
