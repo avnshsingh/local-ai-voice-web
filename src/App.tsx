@@ -1,363 +1,79 @@
-import { useState, useEffect, useRef } from "react";
-import {
-  Download,
-  Pause,
-  Play,
-  Copy,
-  Check,
-  AudioWaveform,
-  Square,
-} from "lucide-react";
-
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Toaster } from "@/components/ui/sonner";
-import { toast } from "sonner";
-
-import { TextStatistics } from "./components/text-statistics";
-import { VoiceSelector } from "./components/voice-selector";
-import type { Voices } from "./components/voice-selector";
-import { SpeedControl } from "./components/speed-control";
-import { AudioChunk } from "./components/audio-chunk";
-import type { AudioChunkData } from "./components/audio-chunk";
-import { Progress } from "./components/ui/progress";
+import { useState } from "react";
 import SiteHeaderNav from "./components/SiteHeader";
-
-// @ts-ignore
-const IS_WEBGPU_AVAILABLE = !!navigator.gpu;
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "./components/ui/tabs";
+import PiperTTS from "./components/PiperTTS";
+import KokoroTTS from "./components/KokoroTTS";
+import { Toaster } from "@/components/ui/sonner";
+import { Sparkles, Bot } from "lucide-react";
+import { Badge } from "./components/ui/badge";
 
 export default function AudioReader() {
-  const [text, setText] = useState(
-    `We at PriVro started with a simple idea: powerful content creation tools shouldn't come at the cost of your privacy. Too many online services require you to upload your content to their servers, often collecting your data in the process.
-
-Our solution is different. We've built a suite of tools that run entirely in your browser, processing everything locally on your device. Your media files, transcriptions, and edits never leave your computer.
-
-We believe in the power of technology to enable creativity while respecting user privacy and ownership of data.`,
-  );
-  const [lastGeneration, setLastGeneration] = useState<{
-    text: string;
-    speed: number;
-    voice: keyof Voices;
-  } | null>(null);
-
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentChunkIndex, setCurrentChunkIndex] = useState(-1);
-  const [speed, setSpeed] = useState(1);
-  const [copied, setCopied] = useState(false);
-
-  const [status, setStatus] = useState<
-    "loading" | "ready" | "generating" | "error"
-  >("loading");
-  const [error, setError] = useState<string | null>(null);
-
-  const worker = useRef<Worker | null>(null);
-  const generationId = useRef(0);
-  const [voices, setVoices] = useState<Voices | null>(null);
-  const [selectedVoice, setSelectedVoice] = useState<keyof Voices>("af_heart");
-  const [chunks, setChunks] = useState<AudioChunkData[]>([]);
-  const [result, setResult] = useState<Blob | null>(null);
-
-  const [loadingProgress, setLoadingProgress] = useState(0); // [0, 100]
-
-  useEffect(() => {
-    worker.current ??= new Worker(new URL("./worker.ts", import.meta.url), {
-      type: "module",
-    });
-
-    // Create a callback function for messages from the worker thread.
-    // @ts-expect-error - No need to define type for data
-    const onMessageReceived = ({ data }) => {
-      // console.log("Message received from worker:", data);
-      switch (data.status) {
-        case "device":
-          toast("Device detected: " + data.device);
-          break;
-        case "progress":
-          // toast("Device detected: " + data.device);
-          if (data.progress.progress) {
-            setLoadingProgress(Math.floor(data.progress.progress));
-          }
-          // setLoadingProgress(data?.progress?.progress);
-          break;
-        case "ready":
-          toast("Model loaded successfully");
-          setStatus("ready");
-          setVoices(data.voices);
-          break;
-        case "error":
-          setStatus("error");
-          setError(data.data);
-          break;
-        case "stream": {
-          if (data.id !== generationId.current) break;
-          setChunks(prev => [...prev, data.chunk]);
-          break;
-        }
-        case "complete": {
-          if (data.id !== generationId.current) break;
-          setStatus("ready");
-          setResult(data.audio);
-          break;
-        }
-      }
-    };
-
-    const onErrorReceived = (e: ErrorEvent) => {
-      console.error("Worker error:", e);
-      setError(e.message);
-    };
-
-    // Attach the callback function as an event listener.
-    worker.current?.addEventListener("message", onMessageReceived);
-    worker.current?.addEventListener("error", onErrorReceived);
-
-    // Define a cleanup function for when the component is unmounted.
-    return () => {
-      worker.current?.removeEventListener("message", onMessageReceived);
-      worker.current?.removeEventListener("error", onErrorReceived);
-    };
-  }, []);
-
-  const processed =
-    lastGeneration &&
-    lastGeneration.text === text &&
-    lastGeneration.speed === speed &&
-    lastGeneration.voice === selectedVoice;
-
-  const handlePlayPause = () => {
-    if (!isPlaying && status === "ready" && !processed) {
-      setStatus("generating");
-      setChunks([]);
-      setResult(null);
-      setCurrentChunkIndex(0);
-      const id = ++generationId.current;
-      const params = { text, voice: selectedVoice, speed, id };
-      setLastGeneration({ text, voice: selectedVoice, speed });
-      worker.current?.postMessage(params);
-    }
-    if (currentChunkIndex === -1) {
-      setCurrentChunkIndex(0);
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  const handleStop = () => {
-    if (status !== "generating") return;
-    generationId.current += 1;
-    worker.current?.postMessage({ type: "stop" });
-    setStatus("ready");
-    setIsPlaying(false);
-    setLastGeneration(null);
-    toast("Voice generation stopped");
-  };
-
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const [activeTab, setActiveTab] = useState<string>("piper");
 
   return (
-    <>
-      <div className="min-h-screen">
-        <SiteHeaderNav />
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
+      <SiteHeaderNav />
 
-        <div className="p-4 md:p-12">
-          <div className="container mx-auto max-w-4xl">
-            <div className="text-center mb-4">
-              <div className="inline-flex items-center gap-2">
-                <AudioWaveform className="size-12 text-brand my-5" />
-                <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-                  Privro - Local AI Voice Generator
-                </h1>
-              </div>
-              <h2 className="text-xl md:text-2xl font-bold text-foreground">
-                Unlimited Free Human Like AI Voice Generation using Kokoro that
-                works on your browser for any device with WebGPU support.
-              </h2>
-              <p className="text-muted-foreground">
-                Convert text to natural-sounding speech. Fully privacy focused,
-                Zero data leaves you device.
-              </p>
-              {!IS_WEBGPU_AVAILABLE && (
-                <p className="text-destructive font-bold mt-2">
-                  ⚠️ WebGPU not detected - Running on CPU mode. For better
-                  performance, we recommend using a WebGPU-enabled browser such
-                  as Chrome and device with GPU.
-                </p>
-              )}
+      <main className="flex-1 p-3 sm:p-6 md:p-8">
+        <div className="container mx-auto max-w-4xl space-y-6">
+          {/* Main TTS Engine Tab Selector */}
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="w-full space-y-6"
+          >
+            <div className="flex justify-center">
+              <TabsList className="h-12 p-1.5 bg-muted/80 backdrop-blur-xs rounded-xl shadow-xs border border-border/50 max-w-md w-full grid grid-cols-2">
+                <TabsTrigger
+                  value="piper"
+                  className="rounded-lg h-9 gap-2 text-xs sm:text-sm font-semibold transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:text-foreground"
+                >
+                  <Sparkles className="size-4 text-brand" />
+                  <span>Piper TTS</span>
+                  <Badge
+                    variant="secondary"
+                    className="text-[10px] px-1.5 py-0 h-4 uppercase font-bold tracking-wider bg-brand/10 text-brand border-brand/20"
+                  >
+                    Primary
+                  </Badge>
+                </TabsTrigger>
+
+                <TabsTrigger
+                  value="kokoro"
+                  className="rounded-lg h-9 gap-2 text-xs sm:text-sm font-semibold transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:text-foreground"
+                >
+                  <Bot className="size-4 text-muted-foreground" />
+                  <span>Kokoro TTS</span>
+                  <Badge
+                    variant="outline"
+                    className="text-[10px] px-1.5 py-0 h-4 text-muted-foreground"
+                  >
+                    Secondary
+                  </Badge>
+                </TabsTrigger>
+              </TabsList>
             </div>
 
-            <Card className="shadow-lg bg-card text-card-foreground">
-              <CardContent>
-                <div className="relative">
-                  <Textarea
-                    value={text}
-                    onChange={e => setText(e.target.value)}
-                    placeholder="Type or paste your text here..."
-                    className={`transition-all min-h-[180px] text-lg leading-relaxed ${processed && status === "ready" ? "bg-secondary" : ""} resize-y ${status === "loading" ? "text-muted-foreground" : ""}`}
-                  />
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    className="absolute top-2 right-2 h-8 w-8 hover:bg-secondary"
-                    onClick={handleCopy}
-                  >
-                    {copied ? (
-                      <Check className="h-4 w-4" />
-                    ) : (
-                      <Copy className="h-4 w-4" />
-                    )}
-                  </Button>
-                </div>
+            {/* Tab 1: Piper Neural Voice Generator (Primary & Default) */}
+            <TabsContent value="piper" className="focus-visible:outline-none">
+              <PiperTTS />
+            </TabsContent>
 
-                <div className="flex justify-end pt-2">
-                  <TextStatistics text={text} />
-                </div>
-                <div className="flex gap-4 pb-4 min-h-14 items-center justify-center">
-                  {voices ? (
-                    <>
-                      <VoiceSelector
-                        voices={voices}
-                        selectedVoice={selectedVoice}
-                        onVoiceChange={setSelectedVoice}
-                      />
-                      <div className="flex items-center gap-4 w-44">
-                        <SpeedControl speed={speed} onSpeedChange={setSpeed} />
-                      </div>
-                    </>
-                  ) : error ? (
-                    <div className="text-red-400 font-semibold text-lg/6 text-center p-2">
-                      {error}
-                    </div>
-                  ) : loadingProgress > 0 ? (
-                    <div className="w-full">
-                      <p className="text-destructive font-bold mt-2 text-center">
-                        Model Files are downloaded only once. Model size: Around
-                        350MB
-                      </p>
-                      <Progress
-                        value={loadingProgress}
-                        className="w-full h-4"
-                      />
-                    </div>
-                  ) : (
-                    <div className="animate-pulse text-center">Loading...</div>
-                  )}
-                </div>
-
-                <Separator />
-
-                <div className="flex py-4 gap-4">
-                  <Button
-                    size="lg"
-                    onClick={handlePlayPause}
-                    className={cn(
-                      "text-lg w-36 transition-all",
-                      isPlaying && "bg-brand hover:bg-brand/90",
-                    )}
-                    disabled={
-                      (status === "ready" && !isPlaying && !text) ||
-                      (status !== "ready" && chunks.length === 0)
-                    }
-                  >
-                    {isPlaying ? (
-                      <>
-                        <Pause className="mr-1 size-8" />
-                        Pause
-                      </>
-                    ) : (
-                      <>
-                        <Play className="mr-1 size-8" />
-                        {processed || status === "generating"
-                          ? "Play"
-                          : "Generate"}
-                      </>
-                    )}
-                  </Button>
-                  {status === "generating" && (
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      onClick={handleStop}
-                      className="text-lg"
-                    >
-                      <Square className="mr-1 size-5 fill-current" />
-                      Stop
-                    </Button>
-                  )}
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    onClick={() => {
-                      if (!result) return;
-                      const url = URL.createObjectURL(result);
-                      const link = document.createElement("a");
-                      link.href = url;
-                      link.download = "audio.wav";
-                      link.click();
-                      URL.revokeObjectURL(url);
-                    }}
-                    disabled={!result || status !== "ready"}
-                    className="ml-auto border-2"
-                  >
-                    <Download className="mr-2 size-6" />
-                    Download Audio
-                  </Button>
-                </div>
-
-                {chunks.length > 0 && (
-                  <div className="mt-4 space-y-1 max-h-[320px] overflow-y-auto px-1 hover">
-                    {chunks.map(({ text, audio }, index) => (
-                      <AudioChunk
-                        key={index}
-                        text={text}
-                        audio={audio}
-                        onClick={() => {
-                          setCurrentChunkIndex(index);
-                        }}
-                        active={currentChunkIndex === index}
-                        playing={isPlaying}
-                        onStart={() => {
-                          setCurrentChunkIndex(index);
-                          setIsPlaying(true);
-                        }}
-                        onPause={() => {
-                          if (currentChunkIndex === index) {
-                            setIsPlaying(false);
-                          }
-                        }}
-                        onEnd={() => {
-                          // No more chunks are still generating, and we have reached the end
-                          if (
-                            status !== "generating" &&
-                            currentChunkIndex === chunks.length - 1
-                          ) {
-                            setIsPlaying(false);
-                            setCurrentChunkIndex(-1);
-                          } else {
-                            setCurrentChunkIndex(prev => prev + 1);
-                          }
-                        }}
-                      />
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </div>
+            {/* Tab 2: Kokoro Neural Voice Generator (Secondary) */}
+            <TabsContent value="kokoro" className="focus-visible:outline-none">
+              <KokoroTTS />
+            </TabsContent>
+          </Tabs>
         </div>
-        <Toaster
-          toastOptions={{
-            style: {
-              fontSize: 16,
-            },
-          }}
-        />
-      </div>
-    </>
+      </main>
+
+      <Toaster
+        toastOptions={{
+          style: {
+            fontSize: 14,
+          },
+        }}
+      />
+    </div>
   );
 }
