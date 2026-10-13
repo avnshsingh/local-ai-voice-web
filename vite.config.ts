@@ -12,9 +12,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    port: 3000,
+  },
   worker: { format: "es" },
   build: {
     target: "esnext",
   },
-  logLevel: process.env.NODE_ENV === "development" ? "error" : "info",
+  logLevel: "info",
 });
