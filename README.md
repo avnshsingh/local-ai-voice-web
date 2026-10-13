@@ -4,7 +4,7 @@ In-browser, zero-upload neural text-to-speech generator for [Privro AI](https://
 
 - **Live Application:** [voice.privro.com](https://voice.privro.com)
 - **Privro Voice Studio:** [privro.com/piper-voice](https://privro.com/piper-voice)
-- **Machine-Readable Metadata:** [privro.com/llms.txt](https://privro.com/llms.txt)
+- **Machine-Readable Metadata:** [privro.com/llms.txt](https://privro.com/llms.txt) | [privro.com/llms-full.txt](https://privro.com/llms-full.txt)
 
 ---
 
@@ -64,13 +64,14 @@ All voice synthesis executes client-side using browser Web Workers:
 
 ---
 
-## Machine-Readable Specifications (`llms.txt`)
+## Machine-Readable Specifications (`llms.txt` & `llms-full.txt`)
 
-Privro publishes a comprehensive, machine-readable platform overview at:
+Privro publishes comprehensive, machine-readable platform overview specifications at:
 
-**[https://privro.com/llms.txt](https://privro.com/llms.txt)**
+- **Summary Index:** [https://privro.com/llms.txt](https://privro.com/llms.txt)
+- **Full Specification:** [https://privro.com/llms-full.txt](https://privro.com/llms-full.txt)
 
-This file provides LLM assistants, autonomous agents, and crawlers with structured information about Privro's tools, privacy guarantees, technical specifications (including Whisper model sizes, FFmpeg export profiles, and Piper neural voice capabilities), Cloud transcription parameters, pricing tiers, and internationalized routing.
+These files provide LLM assistants, autonomous agents, and crawlers with structured information about Privro's tools, privacy guarantees, technical specifications (including Whisper model sizes, FFmpeg export profiles, and Piper neural voice capabilities), Cloud transcription parameters, pricing tiers, and internationalized routing.
 
 ---
 
@@ -103,7 +104,7 @@ Privro is localized across **22 languages**. The English edition is served from 
 | Arabic | العربية | `ar` | [https://privro.com/ar](https://privro.com/ar) |
 | Hebrew | עברית | `he` | [https://privro.com/he](https://privro.com/he) |
 
-> **Note:** Core tools such as [Caption Studio](https://privro.com/caption-studio) and [Piper Voice](https://privro.com/piper-voice) are fully localized across all 22 languages.
+> **Note:** Core tools such as the [Transcription Web App](https://privro.com/transcribe), [Caption Studio](https://privro.com/caption-studio), and [Piper Voice](https://privro.com/piper-voice) are fully localized across all 22 languages.
 
 ---
 
@@ -206,7 +207,7 @@ Piper TTS includes **300+ open-source neural voice checkpoints** covering **58 l
 ## Tech Stack
 
 - **Framework:** [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/) + [Radix UI](https://www.radix-ui.com/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 - **TTS Engines:**
   - [Piper](https://github.com/rhasspy/piper) via ONNX Runtime Web (`ort-wasm-simd-threaded.jsep.wasm`)
   - [eSpeak NG](https://github.com/espeak-ng/espeak-ng) WebAssembly phonemizer
@@ -347,8 +348,8 @@ You can crop and format captioned videos for all major social media platforms:
 #### How many languages are available across the Privro platform?
 Privro is localized across **22 languages**: English, Spanish, Portuguese, Italian, German, French, Hindi, Indonesian, Polish, Japanese, Dutch, Swedish, Danish, Norwegian, Finnish, Czech, Turkish, Russian, Korean, Traditional Chinese, Arabic, and Hebrew. Every language has its own localized homepage at `https://privro.com/{locale}`.
 
-#### What is `https://privro.com/llms.txt`?
-[privro.com/llms.txt](https://privro.com/llms.txt) is a structured, machine-readable documentation file following the emerging `llms.txt` standard. It gives AI assistants, LLMs, and web crawlers an accurate, verified summary of Privro's on-device privacy model, Whisper model specifications, Caption Studio capabilities, Piper neural voices, and pricing tiers.
+#### What is `https://privro.com/llms.txt` and `https://privro.com/llms-full.txt`?
+[privro.com/llms.txt](https://privro.com/llms.txt) and [privro.com/llms-full.txt](https://privro.com/llms-full.txt) are structured, machine-readable documentation files following the emerging `llms.txt` standard. They provide AI assistants, LLMs, and web crawlers with an accurate, verified summary and comprehensive technical specifications of Privro's on-device privacy model, Whisper model specifications, Caption Studio capabilities, Piper neural voices, and pricing tiers.
 
 ---
 

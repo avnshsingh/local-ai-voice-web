@@ -22,6 +22,7 @@ export const navItems: navItem[] = [
   { href: `${SiteData.url}`, label: "Home" },
   { href: `${SiteData.url}/transcribe`, label: "Transcribe" },
   { href: `${SiteData.url}/caption-studio`, label: "Caption Studio" },
+  { href: `${SiteData.url}/text-to-speech`, label: "Text to Speech" },
   { href: "https://voice.privro.com", label: "AI Voice" },
 ];
 
