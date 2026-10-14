@@ -3,6 +3,14 @@
 [![Language: Hebrew](https://img.shields.io/badge/Language-%D7%A2%D7%91%D7%A8%D7%99%D7%AA%20(Hebrew)-blue?style=for-the-badge)](#)
 [![Original: English](https://img.shields.io/badge/Original-English-lightgrey?style=for-the-badge)](README.md)
 
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/avnshsingh/local-ai-voice-web)
+
+<br/>
+
+**Translations / Read in other languages:**
+
+[English](README.md) • [Español](README.es.md) • [Português](README.pt.md) • [Italiano](README.it.md) • [Deutsch](README.de.md) • [Français](README.fr.md) • [हिन्दी](README.hi.md) • [Bahasa Indonesia](README.id.md) • [Polski](README.pl.md) • [日本語](README.ja.md) • [Nederlands](README.nl.md) • [Svenska](README.sv.md) • [Dansk](README.da.md) • [Norsk](README.no.md) • [Suomi](README.fi.md) • [Čeština](README.cs.md) • [Türkçe](README.tr.md) • [Русский](README.ru.md) • [한국어](README.ko.md) • [繁體中文](README.zh-tw.md) • [العربية](README.ar.md) • [עברית](README.he.md)
+
 </div>
 
 # Privro: המרת טקסט לדיבור חינם, תמלול הקלטות והמרת שמע לטקסט, כתוביות אוטומטיות לסרטונים | 100% מקומי בדפדפן ואפס העלאה לענן
