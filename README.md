@@ -1,3 +1,17 @@
+<div align="center">
+
+[![Language: English](https://img.shields.io/badge/Language-English-blue?style=for-the-badge)](#)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/avnshsingh/local-ai-voice-web)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-green?style=for-the-badge)](LICENSE)
+
+<br/>
+
+**Translations / Read in other languages:**
+
+[English](README.md) • [Español](README.es.md) • [Português](README.pt.md) • [Italiano](README.it.md) • [Deutsch](README.de.md) • [Français](README.fr.md) • [हिन्दी](README.hi.md) • [Bahasa Indonesia](README.id.md) • [Polski](README.pl.md) • [日本語](README.ja.md) • [Nederlands](README.nl.md) • [Svenska](README.sv.md) • [Dansk](README.da.md) • [Norsk](README.no.md) • [Suomi](README.fi.md) • [Čeština](README.cs.md) • [Türkçe](README.tr.md) • [Русский](README.ru.md) • [한국어](README.ko.md) • [繁體中文](README.zh-tw.md) • [العربية](README.ar.md) • [עברית](README.he.md)
+
+</div>
+
 # Privro AI Voice - Free Local AI Voice & Text to Speech Generator
 
 In-browser, zero-upload neural text-to-speech generator for [Privro AI](https://privro.com). Paste text, choose a voice model, and generate natural speech entirely on your device. Audio is synthesized locally with Web Workers and WebGPU — no audio or text is ever uploaded to any server.
@@ -75,34 +89,34 @@ These files provide LLM assistants, autonomous agents, and crawlers with structu
 
 ---
 
-## Languages Available on Privro
+## Languages Available on Privro & Localized Documentation
 
-Privro is localized across **22 languages**. The English edition is served from the root domain, while each localized edition is accessible at its dedicated language path:
+Privro is localized across **22 languages**. Complete project documentation and guides are available in all 22 languages:
 
-| Language | Native Name | Code | Homepage |
-| ------------------- | ------------------- | ------ | ---------------------------------------------------- |
-| English | English | `en` | [https://privro.com/](https://privro.com/) |
-| Spanish | Español | `es` | [https://privro.com/es](https://privro.com/es) |
-| Portuguese | Português | `pt` | [https://privro.com/pt](https://privro.com/pt) |
-| Italian | Italiano | `it` | [https://privro.com/it](https://privro.com/it) |
-| German | Deutsch | `de` | [https://privro.com/de](https://privro.com/de) |
-| French | Français | `fr` | [https://privro.com/fr](https://privro.com/fr) |
-| Hindi | हिन्दी | `hi` | [https://privro.com/hi](https://privro.com/hi) |
-| Indonesian | Bahasa Indonesia | `id` | [https://privro.com/id](https://privro.com/id) |
-| Polish | Polski | `pl` | [https://privro.com/pl](https://privro.com/pl) |
-| Japanese | 日本語 | `ja` | [https://privro.com/ja](https://privro.com/ja) |
-| Dutch | Nederlands | `nl` | [https://privro.com/nl](https://privro.com/nl) |
-| Swedish | Svenska | `sv` | [https://privro.com/sv](https://privro.com/sv) |
-| Danish | Dansk | `da` | [https://privro.com/da](https://privro.com/da) |
-| Norwegian | Norsk | `no` | [https://privro.com/no](https://privro.com/no) |
-| Finnish | Suomi | `fi` | [https://privro.com/fi](https://privro.com/fi) |
-| Czech | Čeština | `cs` | [https://privro.com/cs](https://privro.com/cs) |
-| Turkish | Türkçe | `tr` | [https://privro.com/tr](https://privro.com/tr) |
-| Russian | Русский | `ru` | [https://privro.com/ru](https://privro.com/ru) |
-| Korean | 한국어 | `ko` | [https://privro.com/ko](https://privro.com/ko) |
-| Traditional Chinese | 繁體中文 | `zh-tw`| [https://privro.com/zh-tw](https://privro.com/zh-tw) |
-| Arabic | العربية | `ar` | [https://privro.com/ar](https://privro.com/ar) |
-| Hebrew | עברית | `he` | [https://privro.com/he](https://privro.com/he) |
+| # | Language | Native Name | Code | Country / Region | Localized README | Privro Live Homepage |
+| :-: | :--- | :--- | :---: | :--- | :--- | :--- |
+| 1 | English | English | `en` | United States (US) | [README.md](README.md) | [https://privro.com/](https://privro.com/) |
+| 2 | Spanish | Español | `es` | Spain (ES) | [README.es.md](README.es.md) | [https://privro.com/es](https://privro.com/es) |
+| 3 | Portuguese | Português | `pt` | Brazil (BR) | [README.pt.md](README.pt.md) | [https://privro.com/pt](https://privro.com/pt) |
+| 4 | Italian | Italiano | `it` | Italy (IT) | [README.it.md](README.it.md) | [https://privro.com/it](https://privro.com/it) |
+| 5 | German | Deutsch | `de` | Germany (DE) | [README.de.md](README.de.md) | [https://privro.com/de](https://privro.com/de) |
+| 6 | French | Français | `fr` | France (FR) | [README.fr.md](README.fr.md) | [https://privro.com/fr](https://privro.com/fr) |
+| 7 | Hindi | हिन्दी | `hi` | India (IN) | [README.hi.md](README.hi.md) | [https://privro.com/hi](https://privro.com/hi) |
+| 8 | Indonesian | Bahasa Indonesia | `id` | Indonesia (ID) | [README.id.md](README.id.md) | [https://privro.com/id](https://privro.com/id) |
+| 9 | Polish | Polski | `pl` | Poland (PL) | [README.pl.md](README.pl.md) | [https://privro.com/pl](https://privro.com/pl) |
+| 10 | Japanese | 日本語 | `ja` | Japan (JP) | [README.ja.md](README.ja.md) | [https://privro.com/ja](https://privro.com/ja) |
+| 11 | Dutch | Nederlands | `nl` | Netherlands (NL) | [README.nl.md](README.nl.md) | [https://privro.com/nl](https://privro.com/nl) |
+| 12 | Swedish | Svenska | `sv` | Sweden (SE) | [README.sv.md](README.sv.md) | [https://privro.com/sv](https://privro.com/sv) |
+| 13 | Danish | Dansk | `da` | Denmark (DK) | [README.da.md](README.da.md) | [https://privro.com/da](https://privro.com/da) |
+| 14 | Norwegian | Norsk | `no` | Norway (NO) | [README.no.md](README.no.md) | [https://privro.com/no](https://privro.com/no) |
+| 15 | Finnish | Suomi | `fi` | Finland (FI) | [README.fi.md](README.fi.md) | [https://privro.com/fi](https://privro.com/fi) |
+| 16 | Czech | Čeština | `cs` | Czech Republic (CZ) | [README.cs.md](README.cs.md) | [https://privro.com/cs](https://privro.com/cs) |
+| 17 | Turkish | Türkçe | `tr` | Turkey (TR) | [README.tr.md](README.tr.md) | [https://privro.com/tr](https://privro.com/tr) |
+| 18 | Russian | Русский | `ru` | Russia (RU) | [README.ru.md](README.ru.md) | [https://privro.com/ru](https://privro.com/ru) |
+| 19 | Korean | 한국어 | `ko` | South Korea (KR) | [README.ko.md](README.ko.md) | [https://privro.com/ko](https://privro.com/ko) |
+| 20 | Traditional Chinese | 繁體中文 | `zh-tw` | Taiwan (TW) | [README.zh-tw.md](README.zh-tw.md) | [https://privro.com/zh-tw](https://privro.com/zh-tw) |
+| 21 | Arabic | العربية | `ar` | Saudi Arabia (SA) | [README.ar.md](README.ar.md) | [https://privro.com/ar](https://privro.com/ar) |
+| 22 | Hebrew | עברית | `he` | Israel (IL) | [README.he.md](README.he.md) | [https://privro.com/he](https://privro.com/he) |
 
 > **Note:** Core tools such as the [Transcription Web App](https://privro.com/transcribe), [Caption Studio](https://privro.com/caption-studio), and [Piper Voice](https://privro.com/piper-voice) are fully localized across all 22 languages.
 
